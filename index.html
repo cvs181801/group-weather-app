@@ -3,11 +3,83 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Weather By Location</title>
     <link href="stylesheet.css" rel="stylesheet">
+    <title>Weather By Location</title>
 </head>
 <body>
-    <h1>Weather Forecast</h1>
+    
+    <div class="container">
+        <div class="current-info">
+            <div class="date-container">
+                <div class="time" id="time">
+                    12:30 <span id="am-pm">PM</span>
+                </div>
+                <div class="date" id="date">
+                    Sunday, 24 October
+                </div>
+                <div class="place-container">
+                    <div class="city-state" id="city-state">Chicago, Illinois</div>
+                </div>
+
+                <div class="others" id="current-weather-items">
+                    <div class="today" id="current-temp">
+                        <div class="other">
+                            <div class="temp">49&#176;</div>
+                        </div>
+                        <img src="http://openweathermap.org/img/wn/10d@2x.png" alt="weather icon" class="w-icon">
+                    </div>
+                    
+                    <div class="weather-item">
+                        <div>Humidity</div>
+                        <div>80%</div>
+                    </div>
+                    <div class="weather-item">
+                        <div>Pressure</div>
+                        <div>30.14</div>
+                    </div>
+                    <div class="weather-item">
+                        <div>Wind Speed</div>
+                        <div>48</div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="future-forecast">
+
+        <div class="weather-forecast" id="weather-forecast">
+            <div class="weather-forecast-item">
+                <div class="day">Tue</div>
+                <img src="http://openweathermap.org/img/wn/02d@2x.png" alt="weather icon" class="w-icon">
+                <div class="temp">47&#176;</div>
+            </div>
+            <div class="weather-forecast-item">
+                <div class="day">Wed</div>
+                <img src="http://openweathermap.org/img/wn/02d@2x.png" alt="weather icon" class="w-icon">
+                <div class="temp">44&#176;</div>
+            </div>
+            <div class="weather-forecast-item">
+                <div class="day">Thur</div>
+                <img src="http://openweathermap.org/img/wn/09d@2x.png" alt="weather icon" class="w-icon">
+                <div class="temp">50&#176;</div>
+            </div>
+            <div class="weather-forecast-item">
+                <div class="day">Fri</div>
+                <img src="http://openweathermap.org/img/wn/09d@2x.png" alt="weather icon" class="w-icon">
+                <div class="temp">51&#176;</div>
+            </div>
+            <div class="weather-forecast-item">
+                <div class="day">Sat</div>
+                <img src="http://openweathermap.org/img/wn/02d@2x.png" alt="weather icon" class="w-icon">
+                <div class="temp">48&#176;</div>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     
     <script src="index.js"></script>
 </body>
