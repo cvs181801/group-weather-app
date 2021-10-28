@@ -36,6 +36,7 @@ function getWeatherData () {
         fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=hourly,minutely&appid=${API_KEY}`).then(res => res.json()).then(data => {
 
         console.log(data)
+        timezone.innerHTML = data.timezone;
         showWeatherData(data);
         })
 
