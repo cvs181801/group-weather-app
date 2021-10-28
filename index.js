@@ -1,7 +1,7 @@
 const timeEl = document.getElementById('time');
 const dateEl = document.getElementById('date');
 const currentWeatherItemsEl = document.getElementById('current-weather-items');
-const timezone = document.getElementById('time-zone');
+const description = document.getElementById('description');
 const weatherForecastEl = document.getElementById('weather-forecast');
 const currentTempEl = document.getElementById('current-temp');
 
@@ -36,7 +36,8 @@ function getWeatherData () {
         fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=hourly,minutely&appid=${API_KEY}`).then(res => res.json()).then(data => {
 
         console.log(data)
-        timezone.innerHTML = data.timezone;
+        description.innerHTML = data.current.weather[0].description;
+        //console.log(data.current.weather[0].description);
         showWeatherData(data);
         })
 
@@ -46,7 +47,7 @@ function getWeatherData () {
 function showWeatherData (data){
     let {humidity, pressure, sunrise, sunset, wind_speed} = data.current;
 
-    timezone.innerHTML = data.timezone;
+    //timezone.innerHTML = data.timezone;
     countryEl.innerHTML = data.lat + 'N ' + data.lon+'E'
 
     currentWeatherItemsEl.innerHTML = 

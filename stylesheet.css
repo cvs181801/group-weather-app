@@ -69,11 +69,10 @@ body{
     justify-content: space-between; 
 }
 
-#time-zone {
+#description {
     text-align: center;
     font-weight: 300;
-    font-style: italic;
-    font-size: .7rem;
+    font-size: .9rem;
     letter-spacing: .1rem;
 }
 
