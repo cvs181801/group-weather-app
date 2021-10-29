@@ -9,7 +9,8 @@ const cityButton = document.querySelector(".cityBtn");
 const newCityButton = document.querySelector(".newCityBtn");
 const cityDisplay = document.querySelector(".cityName");
 
-newCityButton.style.display = "none";
+//cityInput.style.display = "none";
+//newCityButton.style.display = "none";
 
 const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
 const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -32,22 +33,6 @@ setInterval(() => {
 
 }, 1000);
 
-getWeatherData()
-function getWeatherData () {
-    navigator.geolocation.getCurrentPosition((success) => {
-        
-        let {latitude, longitude } = success.coords;
-
-        fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=hourly,minutely&appid=${API_KEY}`).then(res => res.json()).then(data => {
-
-        console.log(data)
-        description.innerHTML = data.current.weather[0].description;
-        showWeatherData(data);
-        })
-
-    })
-}
-
 function getWeatherDataByCity(city) {
     fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}`) 
         .then(response => response.json())
@@ -58,22 +43,43 @@ function getWeatherDataByCity(city) {
         })
 }
 
-cityButton.addEventListener("click", function(event) {
-    event.preventDefault();
-    cityInput.style.display = "none";
-    cityButton.style.display = "none";
-    newCityButton.style.display = "block";
-    getWeatherDataByCity(cityInput.value);
-})
 
-newCityButton.addEventListener("click", function(event) {
-    event.preventDefault();
-    cityDisplay.innerHTML = "";
-    newCityButton.style.display = "none";
-    cityButton.style.display = "block";
-    cityInput.style.display = "block";
-   
-})
+getWeatherData()
+function getWeatherData () {
+    navigator.geolocation.getCurrentPosition((success, error) => {
+       
+        let {latitude, longitude } = success.coords;
+
+        fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=hourly,minutely&appid=${API_KEY}`)
+            .then(res => res.json())
+            .then(data => {
+            console.log(data)
+            description.innerHTML = data.current.weather[0].description;
+            showWeatherData(data);
+        })
+        if(error) {console.log(error.code)}
+        // cityInput.style.display = "block";
+        // cityButton.style.display = "block";
+        // getWeatherDataByCity("Beijing");
+    })
+}
+
+
+// cityButton.addEventListener("click", function(event) {
+//     event.preventDefault();
+//     cityInput.style.display = "none";
+//     cityButton.style.display = "none";
+//     newCityButton.style.display = "block";
+//     getWeatherDataByCity(cityInput.value);
+// })
+
+// newCityButton.addEventListener("click", function(event) {
+//     event.preventDefault();
+//     cityDisplay.innerHTML = "";
+//     newCityButton.style.display = "none";
+//     cityButton.style.display = "block";
+//     cityInput.style.display = "block";   
+// })
 
 
 function showWeatherData (data){

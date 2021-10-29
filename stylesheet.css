@@ -28,11 +28,20 @@ body{
     align-items: center;
 }
 
+.date-container {
+    margin: 0 auto;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid red;
+}
+
 .date-container .time .date{
     font-weight: 100;
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
+    
 }
 
 .date-container .time{
@@ -48,11 +57,12 @@ body{
     font-size: 30px;
 }
 
-.place-container .city-state{
-    font-size: 20px;
-    font-weight: 100;
+.place-container {
     margin: 0 auto;
     text-align: center;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid pink;
 }
 
 .current-info .others{
@@ -162,6 +172,38 @@ body{
     display: none;
 }
 
+.place-container {
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+} 
+
+.cityBtn,
+.newCityBtn {
+    background-color: white;
+    font-family: inherit;
+    border-style: none;
+    padding: .3em;
+    border-radius: 7px;
+    font-size: .7rem;
+    cursor: pointer;
+    border: 1px solid aqua;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+}
+
+input {
+    background-color: white;
+    font-family: inherit;
+    border-style: none;
+    padding: .3em;
+    border-radius: 7px;
+    font-size: .7rem;
+    margin: 0 .2em .2em .2em; 
+}
+
 @media only screen and  (max-width:400px){
     
     .container{
@@ -187,14 +229,6 @@ body{
     }
 
     .date-container .date{
-        font-size: 20px;
-    }
-
-    .place-container{
-        margin-top: 15px;
-    }
-
-    .place-container .city-state{
         font-size: 20px;
     }
 
