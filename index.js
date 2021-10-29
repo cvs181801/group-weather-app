@@ -4,7 +4,8 @@ const currentWeatherItemsEl = document.getElementById('current-weather-items');
 const description = document.getElementById('description');
 const weatherForecastEl = document.getElementById('weather-forecast');
 const currentTempEl = document.getElementById('current-temp');
-
+const cityInput = document.querySelector(".city");
+const cityButton = document.querySelector(".cityBtn");
 
 const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
 const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -37,17 +38,28 @@ function getWeatherData () {
 
         console.log(data)
         description.innerHTML = data.current.weather[0].description;
-        //console.log(data.current.weather[0].description);
         showWeatherData(data);
         })
 
     })
 }
 
-function showWeatherData (data){
-    let {humidity, pressure, sunrise, sunset, wind_speed} = data.current;
+function getWeatherDataByCity(city) {
+    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}`) //https://api.openweathermap.org/data/2.5/weather?q=Chicago&appid=1c3490897ff213fb415c46efd13ebb3b
+        .then(response => response.json())
+        .then(data => console.log(data))
+}
 
-    //timezone.innerHTML = data.timezone;
+cityButton.addEventListener("click", function(event) {
+    event.preventDefault();
+    getWeatherDataByCity(cityInput.value);
+})
+
+
+
+
+function showWeatherData (data){
+    let {humidity, pressure, sunrise, sunset, wind_speed} = data.current; 
     countryEl.innerHTML = data.lat + 'N ' + data.lon+'E'
 
     currentWeatherItemsEl.innerHTML = 
