@@ -6,6 +6,8 @@ const weatherForecastEl = document.getElementById('weather-forecast');
 const currentTempEl = document.getElementById('current-temp');
 const cityInput = document.querySelector(".city");
 const cityButton = document.querySelector(".cityBtn");
+const newCityButton = document.querySelector(".newCityBtn");
+const cityDisplay = document.querySelector(".cityName");
 
 const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
 const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -47,15 +49,27 @@ function getWeatherData () {
 function getWeatherDataByCity(city) {
     fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}`) //https://api.openweathermap.org/data/2.5/weather?q=Chicago&appid=1c3490897ff213fb415c46efd13ebb3b
         .then(response => response.json())
-        .then(data => console.log(data))
+        .then(data => {
+            cityDisplay.innerHTML = data.name
+        })
 }
 
 cityButton.addEventListener("click", function(event) {
     event.preventDefault();
+    cityInput.style.display = "none";
+    cityButton.style.display = "none";
+    newCityButton.classList.remove = "hidden";
     getWeatherDataByCity(cityInput.value);
 })
 
-
+newCityButton.addEventListener("click", function(event) {
+    event.preventDefault();
+    cityDisplay.innerHTML = "";
+    newCityButton.style.display = "none";
+    cityButton.style.display = "block";
+    cityInput.style.display = "block";
+   
+})
 
 
 function showWeatherData (data){
