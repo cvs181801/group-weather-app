@@ -94,11 +94,11 @@ body{
 } 
 
 .future-forecast-item > img {
-    max-width: 4em;
+    width: 3em;
 }
 
 .forecastWarn {
-    margin: 3em auto 0 auto;
+    margin: 2.5em auto 0 auto;
     font-size: .9rem;
     font-style: italic;
     font-weight: 300;
@@ -269,7 +269,7 @@ input {
     }
 
     .forecastWarn {
-        margin: 5.5em auto 0 auto;
+        margin: 4.5em auto 0 auto;
     }
 
     .future-forecast-item {
@@ -281,7 +281,7 @@ input {
     } 
 
     .future-forecast-item > img {
-        max-width: 6em;
+        width: 6em;
     }
 
     .weather-icon {
