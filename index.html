@@ -9,18 +9,20 @@
 <body>
     
     <div class="container">
-        <div class="current-info">
             <div class="date-container">
                 <div class="time" id="time">
                      <span id="am-pm">PM</span>
-                </div>
-                <div class="date" id="date"></div>
+                </div><!--time-->
+                    <div class="date" id="date"></div>
+            </div><!--date container-->
                 <div class="place-container">
                     <input class="city" id="city" name="city" placeholder="enter your city"></input>
+                    <div class="cityName"></div> 
+                </div><!--place container-->
+                <div class="button-container">
                     <button class="cityBtn">Add City</button>
                     <button class="newCityBtn">Change City</button>
-                    <div class="cityName"></div> 
-                </div>
+                </div><!--button container-->
                     <div id="description"></div>
 
                 <div class="others" id="current-weather-items">
@@ -30,24 +32,21 @@
                         </div>
                         <img src="http://openweathermap.org/img/wn/10d@2x.png" alt="weather icon" class="w-icon">
                     </div>
-                    
-                    <div class="weather-item">
+                <div class="weatherItem-container">  
+                    <div class="weather-item" id="humidity">
                         <div>Humidity</div>
                         <div></div>
                     </div>
-                    <div class="weather-item">
+                    <div class="weather-item" id="pressure">
                         <div>Pressure</div>
                         <div></div>
                     </div>
-                    <div class="weather-item">
+                    <div class="weather-item" id="windspeed">
                         <div>Wind Speed</div>
                         <div></div>
                     </div>
-                    
-                </div>
-            </div>
-        </div>
-    </div>
+                </div><!--weather item container-->
+    </div><!--container-->
 
     <div class="future-forecast">
 

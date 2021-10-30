@@ -20,12 +20,10 @@ body{
 .container{
     padding: 20px 70px;
     color:#fff;
-}
-
-.current-info{
-    display: flex;
-    justify-content: center;
+    margin: 0 auto;
     align-items: center;
+    justify-content: center;
+    text-align: center;
 }
 
 .date-container {
@@ -33,14 +31,15 @@ body{
     text-align: center;
     align-items: center;
     justify-content: center;
-    border: 2px solid red;
+    border: 1px solid red;
+
 }
 
 .date-container .time .date{
     font-weight: 100;
-    display: flex;
+    /* display: flex;
     justify-content: space-between;
-    flex-wrap: wrap;
+    flex-wrap: wrap; */
     
 }
 
@@ -62,9 +61,19 @@ body{
     text-align: center;
     align-items: center;
     justify-content: center;
-    border: 2px solid pink;
+    flex-wrap: none;
+    flex-direction: column;
 }
 
+.button-container {
+    margin: 0 auto;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid aqua;
+    max-width: 4em;
+}
+/* 
 .current-info .others{
     display: flex;
     flex-direction: column;
@@ -72,7 +81,7 @@ body{
     border-radius: 10px;
     margin: 10px 0;
     font-weight: 100;
-}
+} */
 
 .current-info .others .weather-item{
     display: flex;
@@ -177,6 +186,9 @@ body{
     align-items: center;
     justify-content: center;
     margin: 0 auto;
+    
+    flex-wrap: none;
+    flex-direction: column;
 } 
 
 .cityBtn,
@@ -188,7 +200,6 @@ body{
     border-radius: 7px;
     font-size: .7rem;
     cursor: pointer;
-    border: 1px solid aqua;
     text-align: center;
     align-items: center;
     justify-content: center;
@@ -201,7 +212,8 @@ input {
     padding: .3em;
     border-radius: 7px;
     font-size: .7rem;
-    margin: 0 .2em .2em .2em; 
+    margin: 0 auto;
+    text-align: center;
 }
 
 @media only screen and  (max-width:400px){
@@ -232,13 +244,13 @@ input {
         font-size: 20px;
     }
 
-    .current-info .others{
+    /* .current-info .others{
         padding: 12px;
-    }
+    } */
 
-    .current-info .others .weather-item{
+    /* .current-info .others .weather-item{
         font-size: 20px;
-    }
+    } */
 
 }
 

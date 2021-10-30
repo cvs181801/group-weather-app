@@ -8,9 +8,12 @@ const cityInput = document.querySelector(".city");
 const cityButton = document.querySelector(".cityBtn");
 const newCityButton = document.querySelector(".newCityBtn");
 const cityDisplay = document.querySelector(".cityName");
+const humidity = document.getElementById("humidity");
+const pressure = document.getElementById("pressure");
+const windspeed = document.getElementById("windspeed");
 
-//cityInput.style.display = "none";
-//newCityButton.style.display = "none";
+cityInput.style.display = "none";
+newCityButton.style.display = "none";
 
 const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
 const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -37,9 +40,13 @@ function getWeatherDataByCity(city) {
     fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}`) 
         .then(response => response.json())
         .then(data => {
-            console.log(data);
+            console.log(data)
             cityDisplay.innerHTML = data.name
             newCityButton.classList.remove = "hidden";
+            humidity.innerHTML = "humidity: " + data.main.humidity + "%";
+            pressure.innerHTML = "pressure: " + data.main.pressure;
+            windspeed.innerHTML = "windspeed: " + data.wind.speed;
+
         })
 }
 
@@ -57,29 +64,26 @@ function getWeatherData () {
             description.innerHTML = data.current.weather[0].description;
             showWeatherData(data);
         })
-        if(error) {console.log(error.code)}
-        // cityInput.style.display = "block";
-        // cityButton.style.display = "block";
-        // getWeatherDataByCity("Beijing");
+        
     })
 }
 
 
-// cityButton.addEventListener("click", function(event) {
-//     event.preventDefault();
-//     cityInput.style.display = "none";
-//     cityButton.style.display = "none";
-//     newCityButton.style.display = "block";
-//     getWeatherDataByCity(cityInput.value);
-// })
+cityButton.addEventListener("click", function(event) {
+    event.preventDefault();
+    cityInput.style.display = "none";
+    cityButton.style.display = "none";
+    newCityButton.style.display = "block";
+    getWeatherDataByCity(cityInput.value);
+})
 
-// newCityButton.addEventListener("click", function(event) {
-//     event.preventDefault();
-//     cityDisplay.innerHTML = "";
-//     newCityButton.style.display = "none";
-//     cityButton.style.display = "block";
-//     cityInput.style.display = "block";   
-// })
+newCityButton.addEventListener("click", function(event) {
+    event.preventDefault();
+    cityDisplay.innerHTML = "";
+    newCityButton.style.display = "none";
+    cityButton.style.display = "block";
+    cityInput.style.display = "block";   
+})
 
 
 function showWeatherData (data){
