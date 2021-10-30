@@ -22,9 +22,11 @@ const futureTemp2 = document.getElementById("future-forecast--temp2");
 const futureTemp3 = document.getElementById("future-forecast--temp3");
 const futureTemp4 = document.getElementById("future-forecast--temp4");
 const futureTemp5 = document.getElementById("future-forecast--temp5");
+const forecastWarn = document.querySelector(".forecastWarn");
 
 cityInput.style.display = "none";
 newCityButton.style.display = "none";
+forecastWarn.style.display = "none";
 
 const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
 const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -48,6 +50,8 @@ setInterval(() => {
 }, 1000);
 
 function getWeatherDataByCity(city) { 
+    forecastWarn.style.display = "inline-block";
+
     fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}`)  //2a189d6f4eab064d6969d403c185b30d my new API key 
         .then(response => response.json())
         .then(data => {
@@ -70,6 +74,9 @@ function getWeatherData () {
        
         let {latitude, longitude } = success.coords;
 
+        if('geolocation' in navigator) {
+            console.log('geolocation is available');
+
         fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=hourly,minutely&appid=${API_KEY}`)
             .then(res => res.json())
             .then(data => {
@@ -87,6 +94,10 @@ function getWeatherData () {
         futureTemp5.innerHTML = data.daily[4].temp.day + "&#176";
         showWeatherData();
         })
+    } else {
+        forecastWarn.style.display = "inline-block";
+      }
+       
         
     })
 }
