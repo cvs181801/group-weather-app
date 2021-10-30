@@ -23,6 +23,12 @@ const futureTemp3 = document.getElementById("future-forecast--temp3");
 const futureTemp4 = document.getElementById("future-forecast--temp4");
 const futureTemp5 = document.getElementById("future-forecast--temp5");
 const forecastWarn = document.querySelector(".forecastWarn");
+const currentWeatherIcon = document.querySelector(".weather-icon");
+const forecast1Icon = document.getElementById("forecast1icon");
+const forecast2Icon = document.getElementById("forecast1icon");
+const forecast3Icon = document.getElementById("forecast1icon");
+const forecast4Icon = document.getElementById("forecast1icon");
+const forecast5Icon = document.getElementById("forecast1icon");
 
 cityInput.style.display = "none";
 newCityButton.style.display = "none";
@@ -63,6 +69,8 @@ function getWeatherDataByCity(city) {
             pressure.innerHTML = "pressure: " + data.main.pressure;
             windspeed.innerHTML = "windspeed: " + data.wind.speed;
             tempEl.innerHTML = data.main.temp + "&#176";
+            const icon = data.weather[0].icon;
+            currentWeatherIcon.src = `http://openweathermap.org/img/wn/${icon}@2x.png`;
             showWeatherData();
         })
 }
@@ -92,13 +100,27 @@ function getWeatherData () {
         futureTemp3.innerHTML = data.daily[2].temp.day + "&#176";
         futureTemp4.innerHTML = data.daily[3].temp.day + "&#176";
         futureTemp5.innerHTML = data.daily[4].temp.day + "&#176";
+
+        currentDayIcon = data.daily[0].weather[0].icon;
+        forecast1Img = data.daily[1].weather[0].icon;
+        forecast2Img = data.daily[2].weather[0].icon;
+        forecast3Img = data.daily[3].weather[0].icon;
+        forecast4Img = data.daily[4].weather[0].icon;
+        forecast5Img = data.daily[5].weather[0].icon;
+
+        currentWeatherIcon.src = `http://openweathermap.org/img/wn/${currentDayIcon}@2x.png`;
+        forecast1Icon.src = `http://openweathermap.org/img/wn/${forecast1Img}@2x.png`;
+        forecast2Icon.src = `http://openweathermap.org/img/wn/${forecast2Img}@2x.png`;
+        forecast3Icon.src = `http://openweathermap.org/img/wn/${forecast3Img}@2x.png`;
+        forecast4Icon.src = `http://openweathermap.org/img/wn/${forecast4Img}@2x.png`;
+        forecast5Icon.src = `http://openweathermap.org/img/wn/${forecast5Img}@2x.png`;
+
         showWeatherData();
         })
     } else {
         forecastWarn.style.display = "inline-block";
       }
        
-        
     })
 }
 
