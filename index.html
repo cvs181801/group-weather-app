@@ -6,19 +6,20 @@
     <link href="stylesheet.css" rel="stylesheet">
     <title>Weather By Location</title>
 </head>
+
 <body>
     
     <div class="container">
-            <div class="date-container">
+        <div class="date-container">
                 <div class="time" id="time">
-                     <span id="am-pm">PM</span>
+                    <span id="am-pm">PM</span>
                 </div><!--time-->
-                    <div class="date" id="date"></div>
-            </div><!--date container-->
+            <div class="date" id="date"></div>
+        </div><!--date container-->
 
                 <div class="place-container">
                     <input class="city" id="city" name="city" placeholder="enter your city"></input>
-                    <div class="cityName"></div> 
+                        <div class="cityName"></div> 
                 </div><!--place container-->
 
                 <div class="button-container">
@@ -53,34 +54,31 @@
     </div><!--container-->
 
     <div class="future-forecast">
-        <div class="weather-forecast" id="weather-forecast">
-            <div class="weather-forecast-item">
-                <div class="day">Tue</div>
-                <img src="http://openweathermap.org/img/wn/02d@2x.png" alt="weather icon" class="w-icon">
+            <div class="future-forecast-item">
+                <div class="future-forecast--day">Tue</div>
+                    <img src="http://openweathermap.org/img/wn/02d@2x.png" alt="weather icon" class="w-icon">
                 <div class="temp">&#176;</div>
             </div>
-            <div class="weather-forecast-item">
-                <div class="day">Wed</div>
-                <img src="http://openweathermap.org/img/wn/02d@2x.png" alt="weather icon" class="w-icon">
-                <div class="temp">&#176;</div>
+            <div class="future-forecast-item">
+                <div class="future-forecast--day">Wed</div>
+                    <img src="http://openweathermap.org/img/wn/02d@2x.png" alt="weather icon" class="w-icon">
+                <div class="future-forecast--temp">&#176;</div>
             </div>
-            <div class="weather-forecast-item">
-                <div class="day">Thur</div>
-                <img src="http://openweathermap.org/img/wn/09d@2x.png" alt="weather icon" class="w-icon">
-                <div class="temp">&#176;</div>
+            <div class="future-forecast-item">
+                <div class="future-forecast--day">Thur</div>
+                    <img src="http://openweathermap.org/img/wn/09d@2x.png" alt="weather icon" class="w-icon">
+                <div class="future-forecast--temp">&#176;</div>
             </div>
-            <div class="weather-forecast-item">
-                <div class="day">Fri</div>
-                <img src="http://openweathermap.org/img/wn/09d@2x.png" alt="weather icon" class="w-icon">
-                <div class="temp">&#176;</div>
+            <div class="future-forecast-item">
+                <div class="future-forecast--day">Fri</div>
+                    <img src="http://openweathermap.org/img/wn/09d@2x.png" alt="weather icon" class="w-icon">
+                <div class="future-forecast--temp">&#176;</div>
             </div>
-            <div class="weather-forecast-item">
-                <div class="day">Sat</div>
-                <img src="http://openweathermap.org/img/wn/02d@2x.png" alt="weather icon" class="w-icon">
-                <div class="temp">&#176;</div>
+            <div class="future-forecast-item">
+                <div class="future-forecast--day">Sat</div>
+                    <img src="http://openweathermap.org/img/wn/02d@2x.png" alt="weather icon" class="w-icon">
+                <div class="future-forecast--temp">&#176;</div>
             </div>
-
-        </div><!--weather forecast-->
     </div><!--future forecast-->
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
