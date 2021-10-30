@@ -4,6 +4,7 @@ const currentWeatherItemsEl = document.getElementById('current-weather-items');
 const description = document.getElementById('description');
 const weatherForecastEl = document.getElementById('weather-forecast');
 const currentTempEl = document.getElementById('current-temp');
+const tempEl = document.querySelector(".temp");
 const cityInput = document.querySelector(".city");
 const cityButton = document.querySelector(".cityBtn");
 const newCityButton = document.querySelector(".newCityBtn");
@@ -43,9 +44,11 @@ function getWeatherDataByCity(city) {
             console.log(data)
             cityDisplay.innerHTML = data.name
             newCityButton.classList.remove = "hidden";
+            description.innerHTML = data.weather[0].description;
             humidity.innerHTML = "humidity: " + data.main.humidity + "%";
             pressure.innerHTML = "pressure: " + data.main.pressure;
             windspeed.innerHTML = "windspeed: " + data.wind.speed;
+            tempEl.innerHTML = data.main.temp + "&#176";
 
         })
 }
