@@ -12,6 +12,16 @@ const cityDisplay = document.querySelector(".cityName");
 const humidity = document.getElementById("humidity");
 const pressure = document.getElementById("pressure");
 const windspeed = document.getElementById("windspeed");
+const futureDay1 = document.getElementById("future-forecast--day1");
+const futureDay2 = document.getElementById("future-forecast--day2");
+const futureDay3 = document.getElementById("future-forecast--day3");
+const futureDay4 = document.getElementById("future-forecast--day4");
+const futureDay5 = document.getElementById("future-forecast--day5");
+const futureTemp1 = document.getElementById("future-forecast--temp1");
+const futureTemp2 = document.getElementById("future-forecast--temp2");
+const futureTemp3 = document.getElementById("future-forecast--temp3");
+const futureTemp4 = document.getElementById("future-forecast--temp4");
+const futureTemp5 = document.getElementById("future-forecast--temp5");
 
 cityInput.style.display = "none";
 newCityButton.style.display = "none";
@@ -37,8 +47,8 @@ setInterval(() => {
 
 }, 1000);
 
-function getWeatherDataByCity(city) { //  https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY} former resource
-    fetch(`https://api.openweathermap.org/data/2.5/forecast/daily?q=${city}&cnt=6&appid=${API_KEY}`)  //2a189d6f4eab064d6969d403c185b30d my new API key
+function getWeatherDataByCity(city) { 
+    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}`)  //2a189d6f4eab064d6969d403c185b30d my new API key 
         .then(response => response.json())
         .then(data => {
             console.log(data)
@@ -49,7 +59,7 @@ function getWeatherDataByCity(city) { //  https://api.openweathermap.org/data/2.
             pressure.innerHTML = "pressure: " + data.main.pressure;
             windspeed.innerHTML = "windspeed: " + data.wind.speed;
             tempEl.innerHTML = data.main.temp + "&#176";
-
+            showWeatherData();
         })
 }
 
@@ -65,7 +75,17 @@ function getWeatherData () {
             .then(data => {
             console.log(data)
             description.innerHTML = data.current.weather[0].description;
-            showWeatherData(data);
+            humidity.innerHTML = "humidity: " + data.current.humidity + "%";
+            pressure.innerHTML = "pressure: " + data.current.pressure;
+            windspeed.innerHTML = "windspeed: " + data.current.wind_speed;
+            tempEl.innerHTML = data.current.temp + "&#176";
+
+        futureTemp1.innerHTML = data.daily[0].temp.day + "&#176";
+        futureTemp2.innerHTML = data.daily[1].temp.day + "&#176";
+        futureTemp3.innerHTML = data.daily[2].temp.day + "&#176";
+        futureTemp4.innerHTML = data.daily[3].temp.day + "&#176";
+        futureTemp5.innerHTML = data.daily[4].temp.day + "&#176";
+        showWeatherData();
         })
         
     })
@@ -88,59 +108,91 @@ newCityButton.addEventListener("click", function(event) {
 })
 
 
-function showWeatherData (data){
-    let {humidity, pressure, sunrise, sunset, wind_speed} = data.current; 
-    countryEl.innerHTML = data.lat + 'N ' + data.lon+'E'
+function showWeatherData (){
 
-    currentWeatherItemsEl.innerHTML = 
-    `<div class="weather-item">
-        <div>Humidity</div>
-        <div>${humidity}%</div>
-    </div>
-    <div class="weather-item">
-        <div>Pressure</div>
-        <div>${pressure}</div>
-    </div>
-    <div class="weather-item">
-        <div>Wind Speed</div>
-        <div>${wind_speed}</div>
-    </div>
-    <div class="weather-item">
-        <div>Sunrise</div>
-        <div>${window.moment(sunrise * 1000).format('HH:mm a')}</div>
-    </div>
-    <div class="weather-item">
-        <div>Sunset</div>
-        <div>${window.moment(sunset*1000).format('HH:mm a')}</div>
-    </div>
+    const time = new Date();
+    const month = time.getMonth();
+    const date = time.getDate();
+    const day = time.getDay();
+
+    const daysOfWeekValues = {
+        1: "Mon",
+        2: "Tues",
+        3: "Weds",
+        4: "Thurs",
+        5: "Fri",
+        6: "Sat",
+        7: "Sun"
+    }
     
-    `;
-
-    let otherDayForcast = ''
-    data.daily.forEach((day, idx) => {
-        if(idx == 0){
-            currentTempEl.innerHTML = `
-            <img src="http://openweathermap.org/img/wn//${day.weather[0].icon}@4x.png" alt="weather icon" class="w-icon">
-            <div class="other">
-                <div class="day">${window.moment(day.dt*1000).format('dddd')}</div>
-                <div class="temp">Night - ${day.temp.night}&#176;C</div>
-                <div class="temp">Day - ${day.temp.day}&#176;C</div>
-            </div>
-            
-            `
-        }else{
-            otherDayForcast += `
-            <div class="weather-forecast-item">
-                <div class="day">${window.moment(day.dt*1000).format('ddd')}</div>
-                <img src="http://openweathermap.org/img/wn/${day.weather[0].icon}@2x.png" alt="weather icon" class="w-icon">
-                <div class="temp">Night - ${day.temp.night}&#176;C</div>
-                <div class="temp">Day - ${day.temp.day}&#176;C</div>
-            </div>
-            
-            `
+    forecastArray = [day + 1, day + 2, day + 3, day + 4, day + 5];
+    
+    const correctedForecastArray = forecastArray.map((element) => {
+        if (element > 7) {
+            return (element) % 7
+        } else {
+        return element;
         }
     })
 
+    futureDay1.innerHTML = daysOfWeekValues[correctedForecastArray[0]];
+    futureDay2.innerHTML = daysOfWeekValues[correctedForecastArray[1]];
+    futureDay3.innerHTML = daysOfWeekValues[correctedForecastArray[2]];
+    futureDay4.innerHTML = daysOfWeekValues[correctedForecastArray[3]];
+    futureDay5.innerHTML = daysOfWeekValues[correctedForecastArray[4]];
 
-    weatherForecastEl.innerHTML = otherDayForcast;
+    // let {humidity, pressure, sunrise, sunset, wind_speed} = data.current; 
+    // countryEl.innerHTML = data.lat + 'N ' + data.lon+'E'
+
+    // currentWeatherItemsEl.innerHTML = 
+    // `<div class="weather-item">
+    //     <div>Humidity</div>
+    //     <div>${humidity}%</div>
+    // </div>
+    // <div class="weather-item">
+    //     <div>Pressure</div>
+    //     <div>${pressure}</div>
+    // </div>
+    // <div class="weather-item">
+    //     <div>Wind Speed</div>
+    //     <div>${wind_speed}</div>
+    // </div>
+    // <div class="weather-item">
+    //     <div>Sunrise</div>
+    //     <div>${window.moment(sunrise * 1000).format('HH:mm a')}</div>
+    // </div>
+    // <div class="weather-item">
+    //     <div>Sunset</div>
+    //     <div>${window.moment(sunset*1000).format('HH:mm a')}</div>
+    // </div>
+    
+    // `;
+
+    // let otherDayForcast = ''
+    // data.daily.forEach((day, idx) => {
+    //     if(idx == 0){
+    //         currentTempEl.innerHTML = `
+    //         <img src="http://openweathermap.org/img/wn//${day.weather[0].icon}@4x.png" alt="weather icon" class="w-icon">
+    //         <div class="other">
+    //             <div class="day">${window.moment(day.dt*1000).format('dddd')}</div>
+    //             <div class="temp">Night - ${day.temp.night}&#176;C</div>
+    //             <div class="temp">Day - ${day.temp.day}&#176;C</div>
+    //         </div>
+            
+    //         `
+    //     }else{
+    //         otherDayForcast += `
+    //         <div class="weather-forecast-item">
+    //             <div class="day">${window.moment(day.dt*1000).format('ddd')}</div>
+    //             <img src="http://openweathermap.org/img/wn/${day.weather[0].icon}@2x.png" alt="weather icon" class="w-icon">
+    //             <div class="temp">Night - ${day.temp.night}&#176;C</div>
+    //             <div class="temp">Day - ${day.temp.day}&#176;C</div>
+    //         </div>
+            
+    //         `
+    //     }
+    //})
+
+
+    //weatherForecastEl.innerHTML = otherDayForcast;
 }
