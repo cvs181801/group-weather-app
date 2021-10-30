@@ -37,8 +37,8 @@ setInterval(() => {
 
 }, 1000);
 
-function getWeatherDataByCity(city) {
-    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}`) 
+function getWeatherDataByCity(city) { //  https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY} former resource
+    fetch(`https://api.openweathermap.org/data/2.5/forecast/daily?q=${city}&cnt=6&appid=${API_KEY}`)  //2a189d6f4eab064d6969d403c185b30d my new API key
         .then(response => response.json())
         .then(data => {
             console.log(data)
@@ -71,12 +71,11 @@ function getWeatherData () {
     })
 }
 
-
 cityButton.addEventListener("click", function(event) {
     event.preventDefault();
     cityInput.style.display = "none";
     cityButton.style.display = "none";
-    newCityButton.style.display = "block";
+    newCityButton.style.display = "inline-block";
     getWeatherDataByCity(cityInput.value);
 })
 
@@ -84,8 +83,8 @@ newCityButton.addEventListener("click", function(event) {
     event.preventDefault();
     cityDisplay.innerHTML = "";
     newCityButton.style.display = "none";
-    cityButton.style.display = "block";
-    cityInput.style.display = "block";   
+    cityButton.style.display = "inline-block";
+    cityInput.style.display = "inline-block";   
 })
 
 
