@@ -29,6 +29,8 @@ const forecast2Icon = document.getElementById("forecast1icon");
 const forecast3Icon = document.getElementById("forecast1icon");
 const forecast4Icon = document.getElementById("forecast1icon");
 const forecast5Icon = document.getElementById("forecast1icon");
+const celsiusBtn = document.querySelector(".c-btn");
+const farenheitBtn = document.querySelector(".f-btn");
 
 cityInput.style.display = "none";
 newCityButton.style.display = "none";
@@ -57,7 +59,7 @@ setInterval(() => {
 
 function getWeatherDataByCity(city) { 
   
-    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${API_KEY}`)  //https://api.openweathermap.org/data/2.5/weather?q=paris&units=imperial&appid=1c3490897ff213fb415c46efd13ebb3b
+    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${API_KEY}`)  //https://api.openweathermap.org/data/2.5/weather?q=paris&units=imperial&appid=1c3490897ff213fb415c46efd13ebb3b
         .then(response => response.json())
         .then(data => {
             console.log(data)
@@ -76,7 +78,7 @@ function getWeatherDataByCity(city) {
 }
 
 getWeatherData()
-function getWeatherData () {
+function getWeatherData() {
     navigator.geolocation.getCurrentPosition((success, error) => {
        
         let {latitude, longitude } = success.coords;
@@ -84,38 +86,12 @@ function getWeatherData () {
         if('geolocation' in navigator) {
             console.log('geolocation is available');
 
-        fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=hourly,minutely&units=imperial&appid=${API_KEY}`)
+        fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=hourly,minutely&units=metric&appid=${API_KEY}`)
             .then(res => res.json())
             .then(data => {
             console.log(data)
-            description.innerHTML = data.current.weather[0].description;
-            humidity.innerHTML = "humidity: " + data.current.humidity + "%";
-            pressure.innerHTML = "pressure: " + data.current.pressure + " hPa";
-            windspeed.innerHTML = "windspeed: " + data.current.wind_speed;
-            tempEl.innerHTML = data.current.temp + "&#176";
-            cityButton.style.display = "none";
-
-        futureTemp1.innerHTML = data.daily[0].temp.day + "&#176";
-        futureTemp2.innerHTML = data.daily[1].temp.day + "&#176";
-        futureTemp3.innerHTML = data.daily[2].temp.day + "&#176";
-        futureTemp4.innerHTML = data.daily[3].temp.day + "&#176";
-        futureTemp5.innerHTML = data.daily[4].temp.day + "&#176";
-
-        currentDayIcon = data.daily[0].weather[0].icon;
-        forecast1Img = data.daily[1].weather[0].icon;
-        forecast2Img = data.daily[2].weather[0].icon;
-        forecast3Img = data.daily[3].weather[0].icon;
-        forecast4Img = data.daily[4].weather[0].icon;
-        forecast5Img = data.daily[5].weather[0].icon;
-
-        currentWeatherIcon.src = `http://openweathermap.org/img/wn/${currentDayIcon}@2x.png`;
-        forecast1Icon.src = `http://openweathermap.org/img/wn/${forecast1Img}@2x.png`;
-        forecast2Icon.src = `http://openweathermap.org/img/wn/${forecast2Img}@2x.png`;
-        forecast3Icon.src = `http://openweathermap.org/img/wn/${forecast3Img}@2x.png`;
-        forecast4Icon.src = `http://openweathermap.org/img/wn/${forecast4Img}@2x.png`;
-        forecast5Icon.src = `http://openweathermap.org/img/wn/${forecast5Img}@2x.png`;
-
-        showWeatherData();
+            showWeatherData(data);
+            showFutureForecastData();
         })
     } else {
         forecastWarn.style.display = "inline-block";
@@ -140,8 +116,63 @@ newCityButton.addEventListener("click", function(event) {
     cityInput.style.display = "inline-block";   
 })
 
+farenheitBtn.addEventListener("click", function(event) {
+    event.preventDefault();
+    
+    navigator.geolocation.getCurrentPosition((success, error) => {
+       
+        let {latitude, longitude } = success.coords;
 
-function showWeatherData (){
+        if('geolocation' in navigator) {
+            console.log('geolocation is available');
+
+        fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=hourly,minutely&units=imperial&appid=${API_KEY}`)
+            .then(res => res.json())
+            .then(data => {
+            console.log(data)
+            showWeatherData(data);
+            showFutureForecastData();
+        })
+        } else {
+            forecastWarn.style.display = "inline-block";
+        }
+    })
+})
+
+celsiusBtn.addEventListener("click", function(event) {
+    getWeatherData()
+})
+
+function showWeatherData(data) {
+        description.innerHTML = data.current.weather[0].description;
+        humidity.innerHTML = "humidity: " + data.current.humidity + "%";
+        pressure.innerHTML = "pressure: " + data.current.pressure + " hPa";
+        windspeed.innerHTML = "windspeed: " + data.current.wind_speed;
+        tempEl.innerHTML = data.current.temp + "&#176";
+        cityButton.style.display = "none";
+
+        futureTemp1.innerHTML = data.daily[0].temp.day + "&#176";
+        futureTemp2.innerHTML = data.daily[1].temp.day + "&#176";
+        futureTemp3.innerHTML = data.daily[2].temp.day + "&#176";
+        futureTemp4.innerHTML = data.daily[3].temp.day + "&#176";
+        futureTemp5.innerHTML = data.daily[4].temp.day + "&#176";
+
+        currentDayIcon = data.daily[0].weather[0].icon;
+        forecast1Img = data.daily[1].weather[0].icon;
+        forecast2Img = data.daily[2].weather[0].icon;
+        forecast3Img = data.daily[3].weather[0].icon;
+        forecast4Img = data.daily[4].weather[0].icon;
+        forecast5Img = data.daily[5].weather[0].icon;
+
+        currentWeatherIcon.src = `http://openweathermap.org/img/wn/${currentDayIcon}@2x.png`;
+        forecast1Icon.src = `http://openweathermap.org/img/wn/${forecast1Img}@2x.png`;
+        forecast2Icon.src = `http://openweathermap.org/img/wn/${forecast2Img}@2x.png`;
+        forecast3Icon.src = `http://openweathermap.org/img/wn/${forecast3Img}@2x.png`;
+        forecast4Icon.src = `http://openweathermap.org/img/wn/${forecast4Img}@2x.png`;
+        forecast5Icon.src = `http://openweathermap.org/img/wn/${forecast5Img}@2x.png`;
+}
+
+function showFutureForecastData (){
 
     const time = new Date();
     const month = time.getMonth();
@@ -173,6 +204,8 @@ function showWeatherData (){
     futureDay3.innerHTML = daysOfWeekValues[correctedForecastArray[2]];
     futureDay4.innerHTML = daysOfWeekValues[correctedForecastArray[3]];
     futureDay5.innerHTML = daysOfWeekValues[correctedForecastArray[4]];
+
+}
 
     // let {humidity, pressure, sunrise, sunset, wind_speed} = data.current; 
     // countryEl.innerHTML = data.lat + 'N ' + data.lon+'E'
@@ -228,4 +261,4 @@ function showWeatherData (){
 
 
     //weatherForecastEl.innerHTML = otherDayForcast;
-}
+//}
