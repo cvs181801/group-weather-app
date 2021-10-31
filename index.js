@@ -58,15 +58,15 @@ setInterval(() => {
 function getWeatherDataByCity(city) { 
     forecastWarn.style.display = "inline-block";
 
-    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}`)  //2a189d6f4eab064d6969d403c185b30d my new API key 
+    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${API_KEY}`)  //https://api.openweathermap.org/data/2.5/weather?q=paris&units=imperial&appid=1c3490897ff213fb415c46efd13ebb3b
         .then(response => response.json())
         .then(data => {
             console.log(data)
             cityDisplay.innerHTML = data.name
-            newCityButton.classList.remove = "hidden";
+            newCityButton.style.display = "inline-block";
             description.innerHTML = data.weather[0].description;
             humidity.innerHTML = "humidity: " + data.main.humidity + "%";
-            pressure.innerHTML = "pressure: " + data.main.pressure;
+            pressure.innerHTML = "pressure: " + data.main.pressure + "hPa";;
             windspeed.innerHTML = "windspeed: " + data.wind.speed;
             tempEl.innerHTML = data.main.temp + "&#176";
             const icon = data.weather[0].icon;
@@ -74,7 +74,6 @@ function getWeatherDataByCity(city) {
             showWeatherData();
         })
 }
-
 
 getWeatherData()
 function getWeatherData () {
@@ -85,15 +84,16 @@ function getWeatherData () {
         if('geolocation' in navigator) {
             console.log('geolocation is available');
 
-        fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=hourly,minutely&appid=${API_KEY}`)
+        fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=hourly,minutely&units=imperial&appid=${API_KEY}`)
             .then(res => res.json())
             .then(data => {
             console.log(data)
             description.innerHTML = data.current.weather[0].description;
             humidity.innerHTML = "humidity: " + data.current.humidity + "%";
-            pressure.innerHTML = "pressure: " + data.current.pressure;
+            pressure.innerHTML = "pressure: " + data.current.pressure + "hPa";
             windspeed.innerHTML = "windspeed: " + data.current.wind_speed;
             tempEl.innerHTML = data.current.temp + "&#176";
+            cityButton.style.display = "none";
 
         futureTemp1.innerHTML = data.daily[0].temp.day + "&#176";
         futureTemp2.innerHTML = data.daily[1].temp.day + "&#176";
