@@ -7,7 +7,7 @@ const currentTempEl = document.getElementById('current-temp');
 const tempEl = document.querySelector(".temp");
 const cityInput = document.querySelector(".city");
 const cityButton = document.querySelector(".cityBtn");
-const newCityButton = document.querySelector(".newCityBtn");
+const cityButtonWarn = document.querySelector(".cityBtn-warning");
 const cityDisplay = document.querySelector(".cityName");
 const humidity = document.getElementById("humidity");
 const pressure = document.getElementById("pressure");
@@ -32,9 +32,12 @@ const forecast5Icon = document.getElementById("forecast1icon");
 const celsiusBtn = document.querySelector(".c-btn");
 const farenheitBtn = document.querySelector(".f-btn");
 
-cityInput.style.display = "none";
-newCityButton.style.display = "none";
+cityButtonWarn.style.display = "none";
 forecastWarn.style.display = "none";
+celsiusBtn.style.backgroundColor = "white";
+celsiusBtn.style.color = "grey";
+farenheitBtn.style.backgroundColor = "transparent";
+farenheitBtn.style.color = "white";
 
 const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
 const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -57,98 +60,80 @@ setInterval(() => {
 
 }, 1000);
 
-function getWeatherDataByCity(city) { 
-  
-    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${API_KEY}`)  //https://api.openweathermap.org/data/2.5/weather?q=paris&units=imperial&appid=1c3490897ff213fb415c46efd13ebb3b
-        .then(response => response.json())
-        .then(data => {
-            console.log(data)
-            forecastWarn.style.display = "inline-block";
-            cityDisplay.innerHTML = data.name
-            newCityButton.style.display = "inline-block";
-            description.innerHTML = data.weather[0].description;
-            humidity.innerHTML = "humidity: " + data.main.humidity + "%";
-            pressure.innerHTML = "pressure: " + data.main.pressure + " hPa";;
-            windspeed.innerHTML = "windspeed: " + data.wind.speed;
-            tempEl.innerHTML = data.main.temp + "&#176";
-            const icon = data.weather[0].icon;
-            currentWeatherIcon.src = `http://openweathermap.org/img/wn/${icon}@2x.png`;
-            showWeatherData();
-        })
-}
-
-getWeatherData()
-function getWeatherData() {
-    navigator.geolocation.getCurrentPosition((success, error) => {
-       
+getWeatherData(cityInput.value, "metric")
+function getWeatherData(city, units) {
+    navigator.geolocation.getCurrentPosition((success) => {
         let {latitude, longitude } = success.coords;
 
         if('geolocation' in navigator) {
-            console.log('geolocation is available');
+            console.log('geolocation is available');  
+            cityInput.style.display = "none";
 
-        fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=hourly,minutely&units=metric&appid=${API_KEY}`)
+        fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=hourly,minutely&units=${units}&appid=${API_KEY}`)
             .then(res => res.json())
             .then(data => {
             console.log(data)
-            celsiusBtn.style.backgroundColor = "white";
-            celsiusBtn.style.color = "grey";
-            farenheitBtn.style.backgroundColor = "transparent";
-            farenheitBtn.style.color = "white";
             showWeatherData(data);
             showFutureForecastData();
         })
     } else {
         forecastWarn.style.display = "inline-block";
-      }
-       
+        cityInput.style.display = "inline-block";
+        newCityButton.style.display = "inline-block";
+            console.log("I see city")
+            fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&units=${units}&appid=${API_KEY}`)  //https://api.openweathermap.org/data/2.5/weather?q=paris&units=imperial&appid=1c3490897ff213fb415c46efd13ebb3b
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data)
+                    forecastWarn.style.display = "inline-block";
+                    cityDisplay.innerHTML = data.name
+                    newCityButton.style.display = "inline-block";
+                    description.innerHTML = data.weather[0].description;
+                    humidity.innerHTML = "humidity: " + data.main.humidity + "%";
+                    pressure.innerHTML = "pressure: " + data.main.pressure + " hPa";;
+                    windspeed.innerHTML = "windspeed: " + data.wind.speed;
+                    tempEl.innerHTML = data.main.temp + "&#176";
+                    const icon = data.weather[0].icon;
+                    currentWeatherIcon.src = `http://openweathermap.org/img/wn/${icon}@2x.png`;
+                    showWeatherData();
+                })
+    }
     })
 }
+getWeatherData(cityInput.value, "metric")
+
+// cityButton.addEventListener("click", function(event) {
+//     event.preventDefault();
+//     cityInput.style.display = "none";
+//     cityButton.style.display = "none";
+//     newCityButton.style.display = "inline-block";
+//     getWeatherDataByCity(cityInput.value);
+// })
 
 cityButton.addEventListener("click", function(event) {
     event.preventDefault();
-    cityInput.style.display = "none";
-    cityButton.style.display = "none";
-    newCityButton.style.display = "inline-block";
-    getWeatherDataByCity(cityInput.value);
-})
-
-newCityButton.addEventListener("click", function(event) {
-    event.preventDefault();
-    cityDisplay.innerHTML = "";
-    newCityButton.style.display = "none";
-    cityButton.style.display = "inline-block";
-    cityInput.style.display = "inline-block";   
+    cityInput.style.display = "inline-block";
+    cityButtonWarn.style.display = "inline-block";
+    console.log("city button clicked")
+    getWeatherData(cityInput.value, "metric"); 
 })
 
 farenheitBtn.addEventListener("click", function(event) {
     event.preventDefault();
-    
-    navigator.geolocation.getCurrentPosition((success, error) => {
-       
-        let {latitude, longitude } = success.coords;
-
-        if('geolocation' in navigator) {
-            console.log('geolocation is available');
-
-        fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=hourly,minutely&units=imperial&appid=${API_KEY}`)
-            .then(res => res.json())
-            .then(data => {
-            console.log(data)
-            farenheitBtn.style.backgroundColor = "white";
-            farenheitBtn.style.color = "grey";
-            celsiusBtn.style.backgroundColor = "transparent";
-            celsiusBtn.style.color = "white";
-            showWeatherData(data);
-            showFutureForecastData();
-        })
-        } else {
-            forecastWarn.style.display = "inline-block";
-        }
-    })
+        celsiusBtn.style.backgroundColor = "transparent";
+        celsiusBtn.style.color = "white";
+        farenheitBtn.style.backgroundColor = "white";
+        farenheitBtn.style.color = "grey";
+    getWeatherData(cityInput.value, "imperial");
 })
 
 celsiusBtn.addEventListener("click", function(event) {
-    getWeatherData()
+    event.preventDefault();
+        celsiusBtn.style.backgroundColor = "white";
+        celsiusBtn.style.color = "grey";
+        farenheitBtn.style.backgroundColor = "transparent";
+        farenheitBtn.style.color = "white";
+    getWeatherData(cityInput.value, "metric");
 })
 
 function showWeatherData(data) {
@@ -180,7 +165,7 @@ function showWeatherData(data) {
         forecast5Icon.src = `http://openweathermap.org/img/wn/${forecast5Img}@2x.png`;
 }
 
-function showFutureForecastData (){
+function showFutureForecastData() {
 
     const time = new Date();
     const month = time.getMonth();

@@ -97,8 +97,9 @@ body{
     width: 3em;
 }
 
-.forecastWarn {
-    margin: 2.5em auto 0 auto;
+.forecastWarn,
+.cityBtn-warning {
+    margin: 0 auto;
     font-size: .9rem;
     font-style: italic;
     font-weight: 300;
