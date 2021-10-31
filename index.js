@@ -90,6 +90,10 @@ function getWeatherData() {
             .then(res => res.json())
             .then(data => {
             console.log(data)
+            celsiusBtn.style.backgroundColor = "white";
+            celsiusBtn.style.color = "grey";
+            farenheitBtn.style.backgroundColor = "transparent";
+            farenheitBtn.style.color = "white";
             showWeatherData(data);
             showFutureForecastData();
         })
@@ -130,6 +134,10 @@ farenheitBtn.addEventListener("click", function(event) {
             .then(res => res.json())
             .then(data => {
             console.log(data)
+            farenheitBtn.style.backgroundColor = "white";
+            farenheitBtn.style.color = "grey";
+            celsiusBtn.style.backgroundColor = "transparent";
+            celsiusBtn.style.color = "white";
             showWeatherData(data);
             showFutureForecastData();
         })
