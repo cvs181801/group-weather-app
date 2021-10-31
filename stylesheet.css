@@ -102,8 +102,38 @@ body{
     font-size: .9rem;
     font-style: italic;
     font-weight: 300;
+    color: white;
+    text-align: center;
 }
 
+.cityName {
+    font-size: 1.7rem;
+}
+
+.other {
+    display: flex;
+    margin: 0 auto;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.tempBtns {
+    display: flex;
+    flex-direction: column;
+    padding: .7em;
+}
+
+.tempBtns > button {
+    margin-bottom: .2em;
+    color: white;
+    background-color: transparent;
+    border-style: none;
+    border: 1px solid white;
+    padding: .3em;
+    border-radius: 7px;
+
+}
 /* .future-forecast .today{
     margin: 0 auto;
     padding: 2em;

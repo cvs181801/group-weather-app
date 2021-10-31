@@ -56,17 +56,17 @@ setInterval(() => {
 }, 1000);
 
 function getWeatherDataByCity(city) { 
-    forecastWarn.style.display = "inline-block";
-
+  
     fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${API_KEY}`)  //https://api.openweathermap.org/data/2.5/weather?q=paris&units=imperial&appid=1c3490897ff213fb415c46efd13ebb3b
         .then(response => response.json())
         .then(data => {
             console.log(data)
+            forecastWarn.style.display = "inline-block";
             cityDisplay.innerHTML = data.name
             newCityButton.style.display = "inline-block";
             description.innerHTML = data.weather[0].description;
             humidity.innerHTML = "humidity: " + data.main.humidity + "%";
-            pressure.innerHTML = "pressure: " + data.main.pressure + "hPa";;
+            pressure.innerHTML = "pressure: " + data.main.pressure + " hPa";;
             windspeed.innerHTML = "windspeed: " + data.wind.speed;
             tempEl.innerHTML = data.main.temp + "&#176";
             const icon = data.weather[0].icon;
@@ -90,7 +90,7 @@ function getWeatherData () {
             console.log(data)
             description.innerHTML = data.current.weather[0].description;
             humidity.innerHTML = "humidity: " + data.current.humidity + "%";
-            pressure.innerHTML = "pressure: " + data.current.pressure + "hPa";
+            pressure.innerHTML = "pressure: " + data.current.pressure + " hPa";
             windspeed.innerHTML = "windspeed: " + data.current.wind_speed;
             tempEl.innerHTML = data.current.temp + "&#176";
             cityButton.style.display = "none";
