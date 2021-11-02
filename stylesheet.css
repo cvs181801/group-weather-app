@@ -7,7 +7,7 @@
 }
 
 body{
-    background-color: rgba(26, 25, 25, 0.4);
+    background-color: rgba(13, 43, 29, 0.4);
     background-image:url('weatherbackground.jpeg');
     background-blend-mode: multiply;
     background-repeat: no-repeat;

@@ -31,9 +31,8 @@ const forecast4Icon = document.getElementById("forecast1icon");
 const forecast5Icon = document.getElementById("forecast1icon");
 const celsiusBtn = document.querySelector(".c-btn");
 const farenheitBtn = document.querySelector(".f-btn");
+const selectField = document.getElementById("button-container__units-select");
 
-cityButtonWarn.style.display = "none";
-forecastWarn.style.display = "none";
 celsiusBtn.style.backgroundColor = "white";
 celsiusBtn.style.color = "grey";
 farenheitBtn.style.backgroundColor = "transparent";
@@ -62,12 +61,14 @@ setInterval(() => {
 
 getWeatherData(cityInput.value, "metric")
 function getWeatherData(city, units) {
+    
     navigator.geolocation.getCurrentPosition((success) => {
         let {latitude, longitude } = success.coords;
-
-        if('geolocation' in navigator) {
             console.log('geolocation is available');  
             cityInput.style.display = "none";
+            cityButtonWarn.style.display = "none";
+            forecastWarn.style.display = "none";
+            selectField.style.display = "none";
 
         fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=hourly,minutely&units=${units}&appid=${API_KEY}`)
             .then(res => res.json())
@@ -76,46 +77,30 @@ function getWeatherData(city, units) {
             showWeatherData(data);
             showFutureForecastData();
         })
-    } else {
-        forecastWarn.style.display = "inline-block";
-        cityInput.style.display = "inline-block";
-        newCityButton.style.display = "inline-block";
-            console.log("I see city")
-            fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&units=${units}&appid=${API_KEY}`)  //https://api.openweathermap.org/data/2.5/weather?q=paris&units=imperial&appid=1c3490897ff213fb415c46efd13ebb3b
-                .then(response => response.json())
-                .then(data => {
-                    console.log(data)
-                    forecastWarn.style.display = "inline-block";
-                    cityDisplay.innerHTML = data.name
-                    newCityButton.style.display = "inline-block";
-                    description.innerHTML = data.weather[0].description;
-                    humidity.innerHTML = "humidity: " + data.main.humidity + "%";
-                    pressure.innerHTML = "pressure: " + data.main.pressure + " hPa";;
-                    windspeed.innerHTML = "windspeed: " + data.wind.speed;
-                    tempEl.innerHTML = data.main.temp + "&#176";
-                    const icon = data.weather[0].icon;
-                    currentWeatherIcon.src = `http://openweathermap.org/img/wn/${icon}@2x.png`;
-                    showWeatherData();
-                })
-    }
     })
 }
 getWeatherData(cityInput.value, "metric")
-
-// cityButton.addEventListener("click", function(event) {
-//     event.preventDefault();
-//     cityInput.style.display = "none";
-//     cityButton.style.display = "none";
-//     newCityButton.style.display = "inline-block";
-//     getWeatherDataByCity(cityInput.value);
-// })
 
 cityButton.addEventListener("click", function(event) {
     event.preventDefault();
     cityInput.style.display = "inline-block";
     cityButtonWarn.style.display = "inline-block";
-    console.log("city button clicked")
-    getWeatherData(cityInput.value, "metric"); 
+    farenheitBtn.style.display = "none";
+    celsiusBtn.style.display = "none";
+        fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityInput.value}&units=${selectField.value}&appid=${API_KEY}`)  //https://api.openweathermap.org/data/2.5/weather?q=paris&units=imperial&appid=1c3490897ff213fb415c46efd13ebb3b
+            .then(response => response.json())
+            .then(data => {
+                console.log(data)
+                forecastWarn.style.display = "inline-block";
+                cityDisplay.innerHTML = data.name
+                description.innerHTML = data.weather[0].description;
+                humidity.innerHTML = "humidity: " + data.main.humidity + "%";
+                pressure.innerHTML = "pressure: " + data.main.pressure + " hPa";;
+                windspeed.innerHTML = "windspeed: " + data.wind.speed;
+                tempEl.innerHTML = data.main.temp + "&#176";
+                const icon = data.weather[0].icon;
+                currentWeatherIcon.src = `http://openweathermap.org/img/wn/${icon}@2x.png`;
+                })
 })
 
 farenheitBtn.addEventListener("click", function(event) {
