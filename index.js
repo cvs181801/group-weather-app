@@ -83,15 +83,14 @@ getWeatherData(cityInput.value, "metric")
 
 cityButton.addEventListener("click", function(event) {
     event.preventDefault();
-    cityInput.style.display = "inline-block";
-    cityButtonWarn.style.display = "inline-block";
+    cityButtonWarn.style.display = "none";
     farenheitBtn.style.display = "none";
     celsiusBtn.style.display = "none";
         fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityInput.value}&units=${selectField.value}&appid=${API_KEY}`)  //https://api.openweathermap.org/data/2.5/weather?q=paris&units=imperial&appid=1c3490897ff213fb415c46efd13ebb3b
             .then(response => response.json())
             .then(data => {
                 console.log(data)
-                forecastWarn.style.display = "inline-block";
+                forecastWarn.style.display = "block";
                 cityDisplay.innerHTML = data.name
                 description.innerHTML = data.weather[0].description;
                 humidity.innerHTML = "humidity: " + data.main.humidity + "%";

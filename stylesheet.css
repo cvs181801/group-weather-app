@@ -64,7 +64,7 @@ body{
     text-align: center;
     align-items: center;
     justify-content: center;
-    max-width: 6em;
+    max-width: 20em;
 }
 
 #description {
@@ -144,16 +144,6 @@ body{
     padding: .3em;
     border-radius: 7px;
 }
-/* .future-forecast .today{
-    margin: 0 auto;
-    padding: 2em;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid #eee;
-    border-radius: 10px;
-    border-radius: 10px;
-} */
 
 .today .day{
     padding: 5px 15px;
@@ -161,22 +151,11 @@ body{
     text-align: center;
 }
 
-/*.weather-forecast-item .day {
-    font-size: .7rem;
-} */
-
 .today .temp{
     font-size: 60px;
     padding-top: 15px;
     text-align: center;
 }
-
-/* .future-forecast .weather-forecast{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-} */
-
 
 .weather-icon {
     width: 30%;
@@ -195,32 +174,6 @@ body{
     margin-left: auto;
     margin-right: auto;
 }
-
-/* .weather-forecast .weather-forecast-item{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin: 0 10px;
-    border: 1px solid #eee;
-    padding: .1px;
-    border-radius: 10px;
-}
-
-.weather-forecast .weather-forecast-item .day{
-    padding: 5px 15px;
-    border-radius: 50px;
-    text-align: center;
-}
-
-.weather-forecast .weather-forecast-item .temp{
-    font-weight: 100;
-    font-size: 12px;
-}
-
-.weather-forecast-item > img {
-    max-width: 2em; 
-} */
 
 .place-container {
     text-align: center;
@@ -255,6 +208,8 @@ input {
     font-size: .7rem;
     margin: 0 auto;
     text-align: center;
+    align-items: center;
+    justify-content: center;
 }
 
 @media only screen and  (max-width:400px){
@@ -263,12 +218,6 @@ input {
         padding: 20px;
     }
     
-    /* .future-forecast{
-        justify-content: start;
-        align-items: none;
-        overflow-y: scroll;
-    } */
-
     .today .temp{
         font-size: 55px;
     }
@@ -285,22 +234,11 @@ input {
         font-size: 20px;
     }
 
-    /* .current-info .others{
-        padding: 12px;
-    } */
-
-    /* .current-info .others .weather-item{
-        font-size: 20px;
-    } */
-
 }
 
-@media only screen and (max-width: 1000px){
-    /* .future-forecast{
-        justify-content: start;
-        align-items: none;
-    } */
-}
+/* @media only screen and (max-width: 1000px){
+ 
+} */
 
 @media (min-width: 800px) {
 
